@@ -10,4 +10,5 @@ urlpatterns = [
     path('tags/', views.listar_tags, name='listar_tags'),
     path('tags/nova/', views.cadastrar_tag, name='cadastrar_tag'),
     path('tags/editar/<int:pk>/', views.atualizar_tag, name='atualizar_tag'),
+    path('tags/excluir/<int:pk>/', views.excluir_tag, name='excluir_tag'),
 ]

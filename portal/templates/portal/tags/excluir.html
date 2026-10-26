@@ -1,0 +1,15 @@
+{% extends 'portal/base.html' %}
+
+{% block conteudo %}
+<h2>Excluir tag</h2>
+
+<p>Tem certeza de que deseja excluir a tag "{{ tag.nome }}"?</p>
+
+<form method="post">
+    {% csrf_token %}
+
+    <button type="submit">Confirmar exclusão</button>
+    <a href="{% url 'listar_tags' %}">Cancelar</a>
+</form>
+
+{% endblock %}
