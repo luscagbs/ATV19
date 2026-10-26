@@ -1,0 +1,22 @@
+{% extends 'portal/base.html' %}
+
+{% block conteudo %}
+
+{% if tag %}
+    <h2>Editar tag</h2>
+{% else %}
+    <h2>Cadastrar tag</h2>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <label for="nome">Nome da tag:</label>
+    <input type="text" id="nome" name="nome" value="{{ tag.nome|default:'' }}">
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="{% url 'listar_tags' %}">Voltar</a>
+
+{% endblock %}

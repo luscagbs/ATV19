@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Categoria
+from .models import Categoria, Tag
 from django.db.models.deletion import ProtectedError
 
 def listar_categorias(request):
@@ -64,4 +64,46 @@ def excluir_categoria(request, pk):
 
     return render(request, 'portal/categorias/excluir.html', {
         'categoria': categoria
+    })
+
+def listar_tags(request):
+    tags = Tag.objects.all()
+
+    return render(request, 'portal/tags/lista.html', {
+        'tags': tags
+    })
+
+
+
+def cadastrar_tag(request):
+    if request.method == 'POST':
+        nome = request.POST.get('nome', '').strip()
+
+        if nome:
+            Tag.objects.create(nome=nome)
+            messages.success(request, 'Tag cadastrada com sucesso!')
+            return redirect('listar_tags')
+        else:
+            messages.error(request, 'O nome da tag é obrigatório.')
+
+    return render(request, 'portal/tags/formulario.html')
+
+
+
+def atualizar_tag(request, pk):
+    tag = Tag.objects.filter(pk=pk).first()
+
+    if request.method == 'POST':
+        nome = request.POST.get('nome', '').strip()
+
+        if nome:
+            tag.nome = nome
+            tag.save()
+            messages.success(request, 'Tag atualizada com sucesso!')
+            return redirect('listar_tags')
+        else:
+            messages.error(request, 'O nome da tag é obrigatório.')
+
+    return render(request, 'portal/tags/formulario.html', {
+        'tag': tag
     })
