@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import Categoria
-
+from django.db.models.deletion import ProtectedError
 
 def listar_categorias(request):
     categorias = Categoria.objects.all()
@@ -46,3 +46,22 @@ def atualizar_categoria(request, pk):
 
 def inicio(request):
     return render(request, 'portal/inicio.html')
+
+def excluir_categoria(request, pk):
+    categoria = Categoria.objects.filter(pk=pk).first()
+
+    if request.method == 'POST':
+        try:
+            categoria.delete()
+            messages.success(request, 'Categoria excluída com sucesso!')
+        except ProtectedError:
+            messages.error(
+                request,
+                'Não é possível excluir esta categoria, pois existem notícias vinculadas a ela.'
+            )
+
+        return redirect('listar_categorias')
+
+    return render(request, 'portal/categorias/excluir.html', {
+        'categoria': categoria
+    })
