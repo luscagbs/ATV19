@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Escolar de Notícias</title>
+</head>
+<body>
+
+    <header>
+        <h1>Portal Escolar de Notícias</h1>
+
+        <nav>
+            <a href="{% url 'listar_categorias' %}">Categorias</a>
+        </nav>
+    </header>
+
+    <hr>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <main>
+        {% block conteudo %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>
