@@ -107,3 +107,15 @@ def atualizar_tag(request, pk):
     return render(request, 'portal/tags/formulario.html', {
         'tag': tag
     })
+
+def excluir_tag(request, pk):
+    tag = Tag.objects.filter(pk=pk).first()
+
+    if request.method == 'POST':
+        tag.delete()
+        messages.success(request, 'Tag excluída com sucesso!')
+        return redirect('listar_tags')
+
+    return render(request, 'portal/tags/excluir.html', {
+        'tag': tag
+    })
