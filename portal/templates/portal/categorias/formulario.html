@@ -1,0 +1,30 @@
+{% extends 'portal/base.html' %}
+
+{% block conteudo %}
+
+{% if categoria %}
+    <h2>Atualizar categoria</h2>
+{% else %}
+    <h2>Cadastrar categoria</h2>
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+
+    <label for="nome">Nome:</label>
+
+    <input
+        type="text"
+        name="nome"
+        id="nome"
+        value="{{ categoria.nome|default:'' }}"
+    >
+
+    <button type="submit">Salvar</button>
+</form>
+
+<br>
+
+<a href="{% url 'listar_categorias' %}">Voltar</a>
+
+{% endblock %}
