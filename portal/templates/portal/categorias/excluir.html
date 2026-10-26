@@ -1,0 +1,17 @@
+{% extends 'portal/base.html' %}
+
+{% block conteudo %}
+
+<h2>Excluir categoria</h2>
+
+<p>Tem certeza de que deseja excluir a categoria "{{ categoria.nome }}"?</p>
+
+<p>Atenção: esta categoria pode estar vinculada a notícias.</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Confirmar exclusão</button>
+    <a href="{% url 'listar_categorias' %}">Cancelar</a>
+</form>
+
+{% endblock %}
